@@ -1,10 +1,17 @@
 require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const passport = require("passport");
 const session = require("express-session");
 const path = require("node:path");
 const expressLayouts = require("express-ejs-layouts");
+
+const { getContent } = require("./models/quries");
+const {
+  validateCreateUser,
+  validateLoginUser,
+} = require("./middleware/validation");
 
 require("./passport");
 
@@ -35,6 +42,41 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
+app.get("/", async (req, res, next) => {
+  try {
+    const posts = await getContent();
+    res.render("postsSection", { posts });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/register", (req, res) => {
+  return res.render("register", { errors: [] });
+});
+
+app.get("/login", (req, res) => {
+  const messages = req.session.messages || [];
+  req.session.messages = [];
+
+  const errors = messages.map((msg) => ({ msg }));
+
+  return res.render("login", { errors });
+});
+
+app.post("/login", validateLoginUser);
+app.post("/register", validateCreateUser);
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("An error occurred.");
+});
 
 app.listen(PORT, () => {
   console.log("Server is live");

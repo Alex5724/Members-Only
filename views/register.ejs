@@ -1,0 +1,34 @@
+<form action="/register" method="post">
+  <fieldset>
+    <legend>Sign Up</legend>
+    <label for="name">Name</label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+      minlength="2"
+      maxlength="30"
+      pattern="[\p{L}' -]+"
+      title="Use only letters, spaces, apostrophe or hyphen"
+      required
+    />
+    <% if (errors?.length) { %>
+    <% errors.forEach((error) => { %>
+    <p><%= error.msg %></p>
+    <% }) %>
+    <% } %>
+    <label for="password">Password</label>
+
+    <input
+      type="password"
+      name="password"
+      id="password"
+      minlength="8"
+      maxlength="30"
+      pattern="(?=.*\p{L})(?=.*\d).+"
+      required
+      autocomplete="new-password"
+    />
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>

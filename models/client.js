@@ -21,6 +21,8 @@ async function main() {
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
+    created_at TEXT DEFAULT TO_CHAR(NOW(), 'DD FMMonth YYYY "at" HH24:MI:SS'),
+    author TEXT NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
   );
 `);

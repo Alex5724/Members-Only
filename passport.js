@@ -7,8 +7,11 @@ passport.use(
     try {
       const user = await validateUser(name, password);
 
-      if (!user)
-        return done(null, false, { msg: "The name or password is wrong" });
+      if (!user) {
+        return done(null, false, {
+          message: "The name or password is wrong.",
+        });
+      }
 
       return done(null, user);
     } catch (error) {
@@ -21,10 +24,9 @@ passport.serializeUser((user, done) => {
   return done(null, user.id);
 });
 
-passport.deserializeUser(async (user, done) => {
+passport.deserializeUser(async (id, done) => {
   try {
-    const result = await getUser(user.id);
-
+    const result = await getUser(id);
     return done(null, result || false);
   } catch (error) {
     return done(error);

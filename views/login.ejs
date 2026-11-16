@@ -1,0 +1,31 @@
+<form action="/login" method="post">
+  <fieldset>
+    <legend>Log In</legend>
+
+    <label for="name">Name</label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+      pattern="[\p{L}' -]+"
+      title="Use only letters, spaces, apostrophe or hyphen"
+      required
+    />
+    <% if (errors?.length) { %>
+    <% errors.forEach((error) => { %>
+    <p><%= error.msg %></p>
+    <% }) %>
+    <% } %>
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      maxlength="30"
+      autocomplete="current-password"
+      required
+    />
+
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>
