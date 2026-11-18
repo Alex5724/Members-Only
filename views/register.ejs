@@ -1,4 +1,5 @@
-<form action="/register" method="post">
+<link rel="stylesheet" href="/styles/signup.css" />
+<form action="/register" method="post" class="register-form">
   <fieldset>
     <legend>Sign Up</legend>
     <label for="name">Name</label>
@@ -17,8 +18,8 @@
     <p><%= error.msg %></p>
     <% }) %>
     <% } %>
-    <label for="password">Password</label>
 
+    <label for="password">Password</label>
     <input
       type="password"
       name="password"
