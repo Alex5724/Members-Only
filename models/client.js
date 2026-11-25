@@ -13,7 +13,9 @@ async function main() {
     await client.query(`
   CREATE TABLE users (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL
   );
 
