@@ -3,21 +3,24 @@ const LocalStrategy = require("passport-local").Strategy;
 const { getUser, validateUser } = require("./models/quries");
 
 passport.use(
-  new LocalStrategy({ usernameField: "name" }, async (name, password, done) => {
-    try {
-      const user = await validateUser(name, password);
+  new LocalStrategy(
+    { usernameField: "email" },
+    async (name, password, done) => {
+      try {
+        const user = await validateUser(name, password);
 
-      if (!user) {
-        return done(null, false, {
-          message: "The name or password is wrong.",
-        });
+        if (!user) {
+          return done(null, false, {
+            message: "The email or password is wrong.",
+          });
+        }
+
+        return done(null, user);
+      } catch (error) {
+        return done(error);
       }
-
-      return done(null, user);
-    } catch (error) {
-      return done(error);
-    }
-  }),
+    },
+  ),
 );
 
 passport.serializeUser((user, done) => {
