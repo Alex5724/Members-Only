@@ -6,12 +6,7 @@ const passport = require("passport");
 const session = require("express-session");
 const path = require("node:path");
 const expressLayouts = require("express-ejs-layouts");
-
-const { getContent } = require("./models/quries");
-const {
-  validateCreateUser,
-  validateLoginUser,
-} = require("./middleware/validation");
+const userRouter = require("./routes/userRoutes");
 
 require("./passport");
 
@@ -48,30 +43,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", async (req, res, next) => {
-  try {
-    const posts = await getContent();
-    res.render("postsSection", { posts });
-  } catch (error) {
-    next(error);
-  }
-});
-
-app.get("/register", (req, res) => {
-  return res.render("register", { errors: [] });
-});
-
-app.get("/login", (req, res) => {
-  const messages = req.session.messages || [];
-  req.session.messages = [];
-
-  const errors = messages.map((msg) => ({ msg }));
-
-  return res.render("login", { errors });
-});
-
-app.post("/login", validateLoginUser);
-app.post("/register", validateCreateUser);
+app.use("/", userRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);
