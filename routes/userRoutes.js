@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const {
   getPosts,
   redirectToRegisterForm,
@@ -12,9 +13,9 @@ const {
 } = require("../middleware/validation");
 
 router.get("/", getPosts);
-router.get("register", redirectToRegisterForm);
-router.get("login", redirectToLoginForm);
-router.post("login", validateLoginUser);
-router.post("register", validateCreateUser);
+router.get("/register", redirectToRegisterForm);
+router.get("/login", redirectToLoginForm);
+router.post("/login", validateLoginUser);
+router.post("/register", validateCreateUser);
 
 module.exports = router;
