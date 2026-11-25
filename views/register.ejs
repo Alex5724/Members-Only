@@ -2,34 +2,74 @@
 <form action="/register" method="post" class="register-form">
   <fieldset>
     <legend>Sign Up</legend>
-    <label for="name">Name</label>
-    <input
-      type="text"
-      name="name"
-      id="name"
-      minlength="2"
-      maxlength="30"
-      pattern="[\p{L}' -]+"
-      title="Use only letters, spaces, apostrophe or hyphen"
-      required
-    />
-    <% if (errors?.length) { %>
-    <% errors.forEach((error) => { %>
-    <p><%= error.msg %></p>
-    <% }) %>
-    <% } %>
 
-    <label for="password">Password</label>
-    <input
-      type="password"
-      name="password"
-      id="password"
-      minlength="8"
-      maxlength="30"
-      pattern="(?=.*\p{L})(?=.*\d).+"
-      required
-      autocomplete="new-password"
-    />
+    <div class="register-field-1">
+      <label for="first_name">First Name</label>
+      <input
+        type="text"
+        name="first_name"
+        id="first_name"
+        minlength="2"
+        maxlength="30"
+        pattern="[\p{L}' -]+"
+        title="Use only letters, spaces, apostrophe or hyphen"
+        required
+      />
+    </div>
+    <div class="register-field-2">
+      <label for="last_name">Last Name</label>
+      <input
+        type="text"
+        name="last_name"
+        id="last_name"
+        minlength="2"
+        maxlength="30"
+        pattern="[\p{L}' -]+"
+        title="Use only letters, spaces, apostrophe or hyphen"
+        required
+      />
+    </div>
+    <div class="register-field-3">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required />
+    </div>
+    <div class="register-field-4">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        minlength="8"
+        maxlength="30"
+        pattern="(?=.*\p{L})(?=.*\d).+"
+        required
+        autocomplete="new-password"
+      />
+    </div>
+    <div class="register-field-5">
+      <label for="confirm_password">Confirm Password</label>
+      <input
+        type="password"
+        name="confirm_password"
+        id="confirm_password"
+        minlength="8"
+        maxlength="30"
+        pattern="(?=.*\p{L})(?=.*\d).+"
+        required
+        autocomplete="new-password"
+      />
+    </div>
+
+    <div class="register-field-6">
+      <label for="admin">Is Admin</label>
+      <input type="checkbox" name="admin" id="admin" />
+    </div>
+
     <button type="submit">Submit</button>
   </fieldset>
+  <% if (errors?.length) { %>
+  <% errors.forEach((error) => { %>
+  <p><%= error.msg %></p>
+  <% }) %>
+  <% } %>
 </form>
