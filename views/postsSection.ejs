@@ -1,16 +1,12 @@
-<header>
-  <h1>Posts</h1>
-</header>
-
-<section aria-label="Lista postărilor">
+<section class="posts" aria-label="Lista postărilor">
   <% if (posts?.length > 0) { %> <% posts.forEach((post) => { %>
-  <article>
+  <article class="post">
     <h2><%= post.title %></h2>
     <p><%= post.description %></p>
-    <p><%= post.created_at %></p>
+    <p class="post-meta"><%= post.created_at %> by <%= post.author %></p>
   </article>
   <% }) %>
   <% } else { %>
-  <p>No posts :(</p>
+  <p class="empty-posts">No posts :(</p>
   <% } %>
 </section>

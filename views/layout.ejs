@@ -3,24 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css" />
     <title>Members Only</title>
   </head>
   <body>
     <header>
       <h1>
-        <% if(user) { %>
-        <h1>
-          Welcome,
-          <%= user.name %>!
-        </h1>
-        <% } else{ %>
-        <h1>Welcome, stranger!</h1>
+        <% if (user) { %>
+        Welcome,
+        <%= user.name %>!
+        <% } else { %>
+        Welcome, stranger!
         <% } %>
       </h1>
+
       <nav>
         <ul>
-          <li>Login</li>
-          <li>Sign up</li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Sign up</a></li>
         </ul>
       </nav>
     </header>
