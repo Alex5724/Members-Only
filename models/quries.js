@@ -1,9 +1,9 @@
 const pool = require("./pool");
 const bcrypt = require("bcrypt");
 
-async function validateUser(name, password) {
-  const { rows } = await pool.query("SELECT * FROM users WHERE name=$1", [
-    name,
+async function validateUser(email, password) {
+  const { rows } = await pool.query("SELECT * FROM users WHERE email=$1", [
+    email,
   ]);
 
   const user = rows[0];
@@ -19,13 +19,11 @@ async function validateUser(name, password) {
 
 async function getUser(id) {
   const { rows } = await pool.query(
-    `SELECT id, name FROM users WHERE id = $1;`,
+    "SELECT id, first_name, last_name, email, is_admin FROM users WHERE id = $1",
     [id],
   );
 
-  const user = rows[0];
-
-  return user;
+  return rows[0];
 }
 
 async function getContent() {
@@ -36,18 +34,17 @@ async function getContent() {
   return posts;
 }
 
-async function insertUser(name, password) {
-  await pool.query("INSERT INTO users (name, password) VALUES ($1, $2)", [
-    name,
-    password,
-  ]);
+async function insertUser(first_name, last_name, email, password, admin) {
+  await pool.query(
+    "INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES ($1, $2, $3, $4, $5)",
+    [first_name, last_name, email, password, admin],
+  );
 }
 
-async function existingUser(name) {
-  const result = await pool.query(
-    "SELECT id, name FROM users WHERE name = $1",
-    [name],
-  );
+async function existingUser(email) {
+  const result = await pool.query("SELECT id FROM users WHERE email = $1", [
+    email,
+  ]);
 
   return result.rowCount;
 }
